@@ -11,5 +11,5 @@ public interface PessoaService {
     List<PessoaDto> listarPessoas();
     PessoaDto buscarPessoaPorId(UUID id);
     PessoaDto atualizarPessoa(UUID id, PessoaDto pessoaDto);
-    void excluirPessoa(UUID id);
+    //void excluirPessoa(UUID id);
 }
