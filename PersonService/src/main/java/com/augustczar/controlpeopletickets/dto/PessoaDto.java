@@ -3,12 +3,13 @@ package com.augustczar.controlpeopletickets.dto;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
-import jakarta.validation.constraints.Min;
+import com.augustczar.controlpeopletickets.utils.validations.Maioridade;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,19 +26,16 @@ public class PessoaDto implements Serializable{
 
     private static final long serialVersionUID = 2193998997678708796L;
     
-    @NotNull
-	private Long id;
+	private UUID id;
     
     @NotBlank
     private String nome;
  
     @NotBlank
-    @Pattern(regexp = "\\d{11}")
     private String cpf;
     
-    @NotNull
-    @Past
-    @Min(18)
+    @Past(message = "A data de nascimento deve ser no passado")
+    @Maioridade
     private LocalDate dataNascimento;
     
     private String cep;

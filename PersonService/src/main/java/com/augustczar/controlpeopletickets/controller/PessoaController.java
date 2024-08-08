@@ -18,35 +18,37 @@ import org.springframework.web.bind.annotation.RestController;
 import com.augustczar.controlpeopletickets.dto.PessoaDto;
 import com.augustczar.controlpeopletickets.service.PessoaService;
 
+import jakarta.validation.Valid;
+
 @RestController
-@RequestMapping("/api/pessoas")
+@RequestMapping("/pessoas")
 public class PessoaController {
 
     @Autowired
     private PessoaService pessoaService;
 
-    @PostMapping
-    public ResponseEntity<PessoaDto> criarPessoa(@RequestBody PessoaDto pessoaDto) {
+    @PostMapping("/cadastrar")
+    public ResponseEntity<PessoaDto> criarPessoa(@Valid @RequestBody PessoaDto pessoaDto) {
         PessoaDto novaPessoa = pessoaService.criarPessoa(pessoaDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(novaPessoa);
     }
 
-    @GetMapping
+    @GetMapping("/listar")
     public ResponseEntity<List<PessoaDto>> listarPessoas() {
         return ResponseEntity.ok(pessoaService.listarPessoas());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/bucar/{id}")
     public ResponseEntity<PessoaDto> buscarPessoaPorId(@PathVariable UUID id) {
         return ResponseEntity.ok(pessoaService.buscarPessoaPorId(id));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/atualizar/{id}")
     public ResponseEntity<PessoaDto> atualizarPessoa(@PathVariable UUID id, @RequestBody PessoaDto pessoaDTO) {
         return ResponseEntity.ok(pessoaService.atualizarPessoa(id, pessoaDTO));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/excluir/{id}")
     public ResponseEntity<Void> excluirPessoa(@PathVariable UUID id) {
         pessoaService.excluirPessoa(id);
         return ResponseEntity.noContent().build();
