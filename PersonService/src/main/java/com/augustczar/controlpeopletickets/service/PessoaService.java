@@ -8,8 +8,14 @@ import com.augustczar.controlpeopletickets.dto.PessoaDto;
 public interface PessoaService {
 
     PessoaDto criarPessoa(PessoaDto pessoaDto);
+    
     List<PessoaDto> listarPessoas();
+    
     PessoaDto buscarPessoaPorId(UUID id);
+    
     PessoaDto atualizarPessoa(UUID id, PessoaDto pessoaDto);
+    
     void excluirPessoa(UUID id);
+    
+    PessoaDto buscarPessoaComBoletos(UUID pessoaId); 
 }
