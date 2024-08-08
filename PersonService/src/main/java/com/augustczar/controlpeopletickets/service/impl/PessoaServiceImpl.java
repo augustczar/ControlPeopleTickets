@@ -5,10 +5,14 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.augustczar.controlpeopletickets.client.BoletoClient;
+import com.augustczar.controlpeopletickets.dto.BoletoDto;
 import com.augustczar.controlpeopletickets.dto.PessoaDto;
+import com.augustczar.controlpeopletickets.enums.StatusBoleto;
 import com.augustczar.controlpeopletickets.model.Pessoa;
 import com.augustczar.controlpeopletickets.repository.PessoaRepository;
 import com.augustczar.controlpeopletickets.service.PessoaService;
@@ -19,6 +23,9 @@ public class PessoaServiceImpl implements PessoaService {
 
 	@Autowired
     private PessoaRepository pessoaRepository;
+
+    @Autowired
+    private BoletoClient boletoClient;
 
     @Override
     public PessoaDto criarPessoa(PessoaDto pessoaDto) {
@@ -50,4 +57,33 @@ public class PessoaServiceImpl implements PessoaService {
         pessoaRepository.save(pessoaAtualizada);
         return ConverterDtos.toDto(pessoaAtualizada);
     }
+
+    @Override
+    public void excluirPessoa(UUID id) {
+        Pessoa pessoa = pessoaRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Pessoa não encontrada com ID: " + id));
+        List<BoletoDto> boletos = boletoClient.getBoletosByPessoaId(id);
+        boolean possuiBoletosPendentes = boletos.stream()
+                .anyMatch(boleto -> boleto.getStatus() == StatusBoleto.PENDENTE);
+
+        if (possuiBoletosPendentes) {
+            throw new IllegalStateException("Não é possível excluir pessoa com boletos pendentes.");
+        }
+
+        pessoaRepository.delete(pessoa);
+    }
+    
+    @Override
+    public PessoaDto buscarPessoaComBoletos(UUID pessoaId) {
+        Pessoa pessoa = pessoaRepository.findById(pessoaId)
+        		.orElseThrow(() -> new NoSuchElementException("Pessoa não encontrada"));
+        
+        List<BoletoDto> boletos = boletoClient.getBoletosByPessoaId(pessoaId);
+        PessoaDto pessoaDto = new PessoaDto();
+        BeanUtils.copyProperties(pessoa, pessoaDto);
+        pessoaDto.setBoletos(boletos);
+
+        return pessoaDto;
+    }
+
 }
