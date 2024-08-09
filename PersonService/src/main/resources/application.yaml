@@ -23,5 +23,5 @@ feign:
   client:
     config:
       boleto-service:
-        url: ${CONTOL_TICKET_SERVICE_URL}
+        url: ${CONTOL_TICKET_SERVICE_URL}/ticketService
       

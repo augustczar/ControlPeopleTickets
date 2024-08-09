@@ -15,7 +15,7 @@ public interface BoletoClient {
     @GetMapping("/boletos/pessoa/{pessoaId}")
     List<BoletoDto> getBoletosByPessoaId(@PathVariable("pessoaId") UUID pessoaId);
 
-    @GetMapping("/api/boletos/{id}")
+    @GetMapping("/boletos/{id}")
     BoletoDto buscarBoletoPorId(@PathVariable("id") UUID id);
 }
 
