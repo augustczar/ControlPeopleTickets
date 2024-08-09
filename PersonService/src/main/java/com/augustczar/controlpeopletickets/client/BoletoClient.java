@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.augustczar.controlpeopletickets.dto.BoletoDto;
 
-@FeignClient(name = "boleto-service", url = "${personService.ticket.service.url}")
+@FeignClient(name = "boleto-service", url = "${feign.client.config.boleto-service.url}")
 public interface BoletoClient {
 
     @GetMapping("/boletos/pessoa/{pessoaId}")
