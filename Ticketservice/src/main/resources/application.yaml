@@ -1,0 +1,22 @@
+server:
+  port: ${SERVER_PORT_CONTROL_TICKET}
+  servlet:
+    context-path: '/ticketService/'
+  
+spring:
+  application:
+    name: TicketService
+  
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${POSTGRE_URL}/controlticket
+    username: ${POSTGRE_USERNAME}
+    password: ${POSTGRE_PASSWORD}
+  
+  jpa:
+    show-sql: true
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: update
+
+      

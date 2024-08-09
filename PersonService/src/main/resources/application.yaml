@@ -1,0 +1,27 @@
+server:
+  port: ${SERVER_PORT_CONTROL_PEOPLE}
+  servlet:
+    context-path: '/personService/'
+  
+spring:
+  application:
+    name: PersonService
+  
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${POSTGRE_URL}/controlpeople
+    username: ${POSTGRE_USERNAME}
+    password: ${POSTGRE_PASSWORD}
+  
+  jpa:
+    show-sql: true
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: update
+
+feign:
+  client:
+    config:
+      boleto-service:
+        url: ${CONTOL_TICKET_SERVICE_URL}/ticketService
+      
