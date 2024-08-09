@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.augustczar.controlpeopletickets.dto.BoletoDto;
+import com.augustczar.controlpeopletickets.dto.BoletoPagamentoDto;
 
 public interface BoletoService {
 	
@@ -18,4 +19,5 @@ public interface BoletoService {
     
     List<BoletoDto> findBoletosByPessoaId(UUID pessoaId);
 
+    BoletoDto pagarBoleto(BoletoPagamentoDto pagamentoDto);
 }

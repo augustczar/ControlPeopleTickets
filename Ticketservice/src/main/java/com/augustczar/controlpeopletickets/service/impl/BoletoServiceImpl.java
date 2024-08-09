@@ -5,17 +5,19 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.augustczar.controlpeopletickets.dto.BoletoDto;
+import com.augustczar.controlpeopletickets.dto.BoletoPagamentoDto;
 import com.augustczar.controlpeopletickets.enums.StatusBoleto;
 import com.augustczar.controlpeopletickets.model.Boleto;
 import com.augustczar.controlpeopletickets.repository.BoletoRepository;
 import com.augustczar.controlpeopletickets.service.BoletoService;
 import com.augustczar.controlpeopletickets.utils.ConverterDtos;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class BoletoServiceImpl implements BoletoService {
@@ -76,5 +78,32 @@ public class BoletoServiceImpl implements BoletoService {
                 .orElseThrow(() -> new NoSuchElementException("Boleto não encontrado com ID: " + pessoaId));
         return (List<BoletoDto>) ConverterDtos.toDto(boleto);
 	}
+
+    @Override
+    @Transactional
+	public BoletoDto pagarBoleto(BoletoPagamentoDto pagamentoDto) {
+        Boleto boleto = boletoRepository.findById(pagamentoDto.getBoletoId())
+                .orElseThrow(() -> new NoSuchElementException("Boleto não encontrado"));
+
+        // Verifica se o boleto está pendente
+        if (!boleto.getStatus().equals(StatusBoleto.PENDENTE)) {
+            throw new IllegalStateException("Somente boletos com status 'Pendente' podem ser pagos");
+        }
+
+        // Verifica se o valor pago é igual ao valor do documento
+        if (pagamentoDto.getValorPago().compareTo(boleto.getValorDocumento()) != 0) {
+            throw new IllegalArgumentException("O valor pago deve ser igual ao valor do documento");
+        }
+
+        // Atualiza as informações de pagamento
+        boleto.setValorPago(pagamentoDto.getValorPago());
+        boleto.setDataPagamento(pagamentoDto.getDataPagamento());
+        boleto.setStatus(StatusBoleto.PAGO);
+
+        boletoRepository.save(boleto);
+
+        // Converte para DTO e retorna
+        return ConverterDtos.toDto(boleto);
+    }
 }
 
