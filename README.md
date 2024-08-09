@@ -1,7 +1,11 @@
 # ControlPeopleTickets
 
+## Git Clone:
+- git@github.com:augustczar/ControlPeopleTickets.git
+
 ## Microservices:
-### PersonService and Ticktservice
+- PersonService: port 8081 (http) with context path '/personService'
+- Ticktservice: port 8082 (http) with context path '/ticketService'
 
 ## Pré-requisitos
 - Java 17
