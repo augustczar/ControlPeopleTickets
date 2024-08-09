@@ -19,8 +19,9 @@ spring:
     hibernate:
       ddl-auto: update
 
-personService:
-  ticket:
-    service:
-      url: ${CONTROL_TICKET_SERVICE_URL}
+feign:
+  client:
+    config:
+      boleto-service:
+        url: ${CONTOL_TICKET_SERVICE_URL}
       
