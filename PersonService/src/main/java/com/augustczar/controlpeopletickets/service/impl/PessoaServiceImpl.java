@@ -24,7 +24,7 @@ public class PessoaServiceImpl implements PessoaService {
 	@Autowired
     private PessoaRepository pessoaRepository;
 
-    //@Autowired
+    @Autowired
     private BoletoClient boletoClient;
 
     @Override
