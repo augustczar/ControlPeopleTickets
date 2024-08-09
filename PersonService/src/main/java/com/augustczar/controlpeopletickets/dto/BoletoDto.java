@@ -1,5 +1,6 @@
 package com.augustczar.controlpeopletickets.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -17,13 +18,22 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class BoletoDto {
-    private UUID id;
-    private Long pessoaId;
+public class BoletoDto implements Serializable{
+    
+	private static final long serialVersionUID = 4352161708100858169L;
+
+	private UUID id;
+    
+	private UUID pessoaId;
+    
     private BigDecimal valorDocumento;
+     
     private LocalDate dataVencimento;
+    
     private BigDecimal valorPago;
+    
     private LocalDate dataPagamento;
+    
     private StatusBoleto status;
 
 }

@@ -13,7 +13,7 @@ import com.augustczar.controlpeopletickets.model.Boleto;
 @Repository
 public interface BoletoRepository extends JpaRepository<Boleto, UUID> {
     
-	List<Boleto> findByPessoaIdOrderByDataVencimento(UUID pessoaId);
+	List<Boleto> findByPessoaIdOrderByDataVencimentoAsc(UUID pessoaId);
     
 	List<Boleto> findByStatus(StatusBoleto status);
 

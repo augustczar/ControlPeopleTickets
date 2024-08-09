@@ -75,7 +75,7 @@ public class BoletoServiceImpl implements BoletoService {
 
 	@Override
 	public List<BoletoDto> findBoletosByPessoaId(UUID pessoaId) {
-		List<Boleto> boletos = boletoRepository.findByPessoaId(pessoaId);
+		List<Boleto> boletos = boletoRepository.findByPessoaIdOrderByDataVencimentoAsc(pessoaId);
 
 		if (boletos.isEmpty()) {
 			throw new NoSuchElementException("Boletos não encontrados para o ID da pessoa: " + pessoaId);

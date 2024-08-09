@@ -76,11 +76,10 @@ public class PessoaServiceImpl implements PessoaService {
     @Override
     public PessoaDto buscarPessoaComBoletos(UUID pessoaId) {
         Pessoa pessoa = pessoaRepository.findById(pessoaId)
-        		.orElseThrow(() -> new NoSuchElementException("Pessoa não encontrada"));
-        
+                .orElseThrow(() -> new NoSuchElementException("Pessoa não encontrada"));
+
         List<BoletoDto> boletos = boletoClient.getBoletosByPessoaId(pessoaId);
-        PessoaDto pessoaDto = new PessoaDto();
-        BeanUtils.copyProperties(pessoa, pessoaDto);
+        PessoaDto pessoaDto = ConverterDtos.toDto(pessoa);
         pessoaDto.setBoletos(boletos);
 
         return pessoaDto;

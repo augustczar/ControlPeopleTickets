@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.augustczar.controlpeopletickets.dto.BoletoDto;
 import com.augustczar.controlpeopletickets.dto.PessoaDto;
 import com.augustczar.controlpeopletickets.service.PessoaService;
 
@@ -52,6 +53,12 @@ public class PessoaController {
     public ResponseEntity<Void> excluirPessoa(@PathVariable UUID id) {
         pessoaService.excluirPessoa(id);
         return ResponseEntity.noContent().build();
+    }
+    
+    @GetMapping("/{pessoaId}/boletos")
+    public ResponseEntity<PessoaDto> buscarPessoaComBoletos(@PathVariable UUID pessoaId) {
+        PessoaDto pessoaDTO = pessoaService.buscarPessoaComBoletos(pessoaId);
+        return ResponseEntity.ok(pessoaDTO);
     }
 }
 
