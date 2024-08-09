@@ -64,10 +64,16 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-	    	<groupId>org.springdoc</groupId>
-	    	<artifactId>springdoc-openapi-ui</artifactId>
-	    	<version>1.6.7</version>
-		</dependency>	
+			<groupId>org.springframework.restdocs</groupId>
+			<artifactId>spring-restdocs-mockmvc</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui -->
+		<dependency>
+		    <groupId>org.springdoc</groupId>
+		    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+		    <version>2.6.0</version>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
