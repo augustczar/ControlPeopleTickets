@@ -1,6 +1,5 @@
 package com.augustczar.controlpeopletickets.repository;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -8,7 +7,6 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.augustczar.controlpeopletickets.dto.BoletoDto;
 import com.augustczar.controlpeopletickets.enums.StatusBoleto;
 import com.augustczar.controlpeopletickets.model.Boleto;
 
@@ -21,5 +19,5 @@ public interface BoletoRepository extends JpaRepository<Boleto, UUID> {
 
 	Optional<Boleto> findBoletosByPessoaId(UUID pessoaId);
 
-	Collection<BoletoDto> findByPessoaId(UUID pessoaId);
+	List<Boleto> findByPessoaId(UUID pessoaId);
 }

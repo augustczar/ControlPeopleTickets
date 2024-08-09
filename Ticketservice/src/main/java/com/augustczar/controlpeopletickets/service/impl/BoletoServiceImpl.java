@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -74,9 +75,14 @@ public class BoletoServiceImpl implements BoletoService {
 
 	@Override
 	public List<BoletoDto> findBoletosByPessoaId(UUID pessoaId) {
-        Boleto boleto = boletoRepository.findBoletosByPessoaId(pessoaId)
-                .orElseThrow(() -> new NoSuchElementException("Boleto não encontrado com ID: " + pessoaId));
-        return (List<BoletoDto>) ConverterDtos.toDto(boleto);
+		List<Boleto> boletos = boletoRepository.findByPessoaId(pessoaId);
+
+		if (boletos.isEmpty()) {
+			throw new NoSuchElementException("Boletos não encontrados para o ID da pessoa: " + pessoaId);
+		}
+
+		// Convertendo a lista de Boleto para BoletoDto
+		return boletos.stream().map(ConverterDtos::toDto).collect(Collectors.toList());
 	}
 
     @Override

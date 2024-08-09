@@ -38,9 +38,9 @@ public class BoletoController {
         return ResponseEntity.ok(boletoService.buscarBoletoPorId(id));
     }
 
-    @PostMapping("/{id}/pagamento")
-    public ResponseEntity<BoletoDto> pagarBoleto(@Valid @PathVariable UUID id, @RequestBody BoletoPagamentoDto pagamentoDto) {
-        BoletoDto boletoPago = boletoService.pagarBoleto(id, pagamentoDto.getValorPago());
+    @PostMapping("/pagar")
+    public ResponseEntity<BoletoDto> pagarBoleto(@Valid @RequestBody BoletoPagamentoDto pagamentoDto) {
+        BoletoDto boletoPago = boletoService.pagarBoleto(pagamentoDto);
         return ResponseEntity.ok(boletoPago);
     }
 
