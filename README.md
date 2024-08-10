@@ -1,5 +1,11 @@
 # ControlPeopleTickets
 
+O Projeto ControlPeopleTickets conta com a gestão das APIs dos microservices PersonService e TicketService, envolve a organização e coordenação de suas funcionalidades para garantir que trabalhem de forma integrada e eficiente.
+
+PersonService: Responsável por gerenciar as informações de pessoas onde, são fundamentais, pois são referenciadas em outras partes do sistema, como no TicketService.
+
+TicketService: Responsável pela gestão de boletos, serviço estes que depende das informações do PersonService, já que os boletos estão associados a pessoas específicas.
+
 ## Git Clone:
 - git@github.com:augustczar/ControlPeopleTickets.git
 
