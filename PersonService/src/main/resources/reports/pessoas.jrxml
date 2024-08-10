@@ -8,7 +8,7 @@
     <queryString><![CDATA[]]></queryString>
     <field name="id" class="java.util.UUID"/>
     <field name="nome" class="java.lang.String"/>
-    <field name="cpf" class="java.lang.String"/>
+    <field name="cpf" class="java.lang.String"></field>
     <field name="dataNascimento" class="java.time.LocalDate"/>
 
     <title>
@@ -47,7 +47,7 @@
                 <text><![CDATA[CPF]]></text>
             </staticText>
             <staticText>
-                <reportElement x="505" y="0" width="55" height="30"/>
+                <reportElement x="505" y="0" width="60" height="30"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font size="8" isBold="true"/>
                 </textElement>
@@ -74,7 +74,7 @@
                 <textFieldExpression><![CDATA[$F{cpf}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="505" y="0" width="55" height="20"/>
+                <reportElement x="505" y="0" width="60" height="20"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle"/>
                 <textFieldExpression><![CDATA[$F{dataNascimento}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></textFieldExpression>
             </textField>
